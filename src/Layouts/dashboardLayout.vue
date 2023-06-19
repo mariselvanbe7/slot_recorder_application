@@ -75,7 +75,7 @@
         </q-item-section>
 
         <q-item-section side top>
-          <q-icon name="star" color="yellow"></q-icon>
+          <q-badge rounded color="green"></q-badge>
         </q-item-section>
       </q-item>
 
@@ -114,6 +114,13 @@ export default {
         label: "Lists",
         routeTo: "lists",
         value: "lists",
+        separator: false,
+ },
+ {
+        icon: "repartition",
+        label: "Entered-vehicles",
+        routeTo: "checkedIn",
+        value: "checkedIn",
         separator: false,
  },
   {

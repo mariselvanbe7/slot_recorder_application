@@ -45,6 +45,10 @@ const routes: Array<RouteRecordRaw> = [
       {
         path:'/exits',
         component: () => import('@/components/CheckoutVechiclesComp.vue')
+      },
+      {
+        path:'/checkedIn',
+        component: () => import('@/components/CheckInVechiclesComp.vue')
       }
     ],
     // Add the route guard to the route

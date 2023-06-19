@@ -1,5 +1,6 @@
 <template>
   <q-page class="q-pa-xl full-width">
+    <p style="font-size: large;" class="text-bold">Checkedout vehicle details</p>
     <div class="q-mb-md row">
       <div class="col-4">
         <q-input

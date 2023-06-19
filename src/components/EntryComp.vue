@@ -4,7 +4,7 @@
     <q-form
       style="
         width: 600px;
-        height: 500px;
+        height: 550px;
       "
       @submit="createUser"
     >
@@ -15,7 +15,7 @@
         <div class="text-h6 text-weight-bold">Check-in-vehicles</div>
       </q-card-section>
       <q-card-section class="q-pa-lg q-col-gutter-lg">
-        <q-input outlined v-model="text" label="Vehicle Number" mask="TN-##-A-####"  :rules="[
+        <q-input outlined v-model="text" label="Vehicle Number" mask="AA-##-AA-####"  :rules="[
                     (text) =>
                       vehicleNumberValidation(text) || 'Enter the valid vehicle number',
                   ]">
@@ -95,7 +95,7 @@
           no-caps
           style="background-color: red; border-radius: 10px"
           class="text-white col-4"
-          label="Chek-in"
+          label="Check-in"
           type="submit"
         ></q-btn>
       </div>
@@ -110,6 +110,7 @@
 import { ref, onMounted } from "vue";
 import db from "@/firebase";
 import { Cookies, useQuasar, Loading, QSpinnerGears } from "quasar";
+import jsPDF from "jspdf";
 
 export default {
   name: "VehicleEntry",
@@ -126,7 +127,7 @@ export default {
     const LoggedUser = Cookies.get('userName')
 
     function vehicleNumberValidation(vechicleNumber: string): boolean{
-       const vehicleNumberValidations = /^[A-Z]{2}-\d{2}-[A-Z]-\d{4}$/;
+       const vehicleNumberValidations = /^[A-Z]{2}-\d{2}-[A-Z]{2}-\d{4}$/;
        return vehicleNumberValidations.test(vechicleNumber);
     }
 
@@ -159,6 +160,12 @@ export default {
             status:status.value,
           })
           .then(() => {
+            generateBill({
+rupees: rupees.value,
+text: text.value,
+date:date,
+vehicleType: selectedOption.value
+});
             $q.loading.hide();
             $q.notify({
               type: "positive",
@@ -169,6 +176,37 @@ export default {
         console.error("Error creating user:", error);
       }
     };
+
+    const generateBill = (vehicle: { text: string; date: string; vehicleType: never[]; rupees: number; }) => {
+  const doc = new jsPDF();
+
+  // Company Name, Phone Number, and Address
+  const companyName = "SKP parking";
+  const phoneNumber = "48764 87348";
+  const address = "123 Main St, City, State";
+
+  // Generate PDF content
+  doc.setFontSize(18);
+  doc.text("Vehicle: " + vehicle.text, 10, 30);
+  doc.text("Date: " + vehicle.date, 10, 40);
+  doc.text("Vehicle Type: " + vehicle.vehicleType, 10, 50);
+  doc.text("₹ " + vehicle.rupees, 10, 60);
+
+
+  // Add Company Name
+  doc.setFontSize(12);
+  doc.setTextColor(128);
+  doc.text(companyName, doc.internal.pageSize.getWidth() - 10, 10, { align: "right" });
+
+  // Add Phone Number and Address
+  doc.setTextColor(0);
+  doc.text("Phone: " + phoneNumber, doc.internal.pageSize.getWidth() - 10, 20, { align: "right" });
+  doc.text("Address: " + address, doc.internal.pageSize.getWidth() - 10, 30, { align: "right" });
+
+  // Save the PDF
+  doc.save(`${companyName}-vehicle-bill-${vehicle.text}.pdf`);
+};
+
 
     onMounted(() => {
       updateTime();
@@ -186,6 +224,7 @@ export default {
       LoggedUser,
       status,
       vehicleNumberValidation,
+      generateBill
     };
   },
 };
