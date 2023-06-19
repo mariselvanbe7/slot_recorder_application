@@ -1,0 +1,11 @@
+@import './quasar.variables.scss';
+@import '~quasar-styl';
+// @import '~quasar-addon-styl';
+
+@import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
+  
+.custom-heading {
+  font-family: "Lobster", cursive;
+  font-size: 4px;
+  font-weight: bold;
+}
