@@ -112,20 +112,20 @@ export default defineComponent({
     async function LoginSuccess() {
       await fetchUsers();
       const foundUser = find(users.value, (user) => {
-        Cookies.set('userName', user.name);
-    Cookies.set('email', user.email);
-  return user.name === username.value && user.password === password.value;
-});
-     
-  if (foundUser) {
-    window.location.href = "/entry";
-  } else {
-    alert("Incorrect Username or Password");
-    $q.notify({
-      type: "negative",
-      message: "Incorrect Username or Password",
-    });
-  }
+        Cookies.set("userName", user.name);
+        Cookies.set("email", user.email);
+        Cookies.set("companyId", user.companyId);
+        return user.name === username.value && user.password === password.value;
+      });
+
+      if (foundUser) {
+        window.location.href = "/entry";
+      } else {
+        $q.notify({
+          type: "negative",
+          message: "Incorrect Username or Password",
+        });
+      }
     }
     return {
       username,

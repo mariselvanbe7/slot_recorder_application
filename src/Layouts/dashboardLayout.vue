@@ -64,7 +64,7 @@
       class="q-gutter-y-sm q-pa-lg"
       :width="337"
     >
-      <q-item class="shadow-10">
+      <q-item class="shadow-2">
         <q-item-section top avatar caps>
           <q-avatar > {{ name.charAt(0) }}</q-avatar>
         </q-item-section>
@@ -80,7 +80,7 @@
       </q-item>
 
       <q-date
-        class="shadow-20 bg-grey-3 q-pa-md"
+        class="shadow-2 q-pa-md"
         v-model="date"
         minimal
         :default-date="new Date()"

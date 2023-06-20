@@ -13,7 +13,12 @@
         ></q-input>
       </div>
       <div class="col-4 q-px-md">
-        <q-input outlined v-model="date" mask="date" placeholder="Search by date">
+        <q-input
+          outlined
+          v-model="date"
+          mask="date"
+          placeholder="Search by date"
+        >
           <template v-slot:append>
             <q-icon name="event" class="cursor-pointer">
               <q-popup-proxy
@@ -21,9 +26,15 @@
                 transition-show="scale"
                 transition-hide="scale"
               >
-                <q-date v-model="date">
+                <q-date v-model="date" color="red">
                   <div class="row items-center justify-end">
-                    <q-btn v-close-popup label="Close" color="red" flat></q-btn>
+                    <q-btn
+                      no-caps
+                      v-close-popup
+                      label="Close"
+                      color="red"
+                      flat
+                    ></q-btn>
                   </div>
                 </q-date>
               </q-popup-proxy>
@@ -66,7 +77,7 @@
 <script lang="ts">
 import { onMounted, ref, computed } from "vue";
 import db from "@/firebase";
-import { Loading, QSpinnerGears, useQuasar } from "quasar";
+import { Cookies, Loading, QSpinnerGears, useQuasar } from "quasar";
 import jsPDF from "jspdf";
 
 export default {
@@ -78,6 +89,7 @@ export default {
     const $q = useQuasar();
     const searchText = ref("");
     const date = ref("");
+    const companyId = Cookies.get("companyId");
 
     const calculateUpdatedRupees = (val: number, row: any) => {
       const enteredDate = new Date(row.date);
@@ -87,7 +99,7 @@ export default {
       let updatedRupees = val;
 
       if (!row.status) {
-        updatedRupees += daysDiff * 10 - 10; // Assuming each day adds 10 rupees
+        updatedRupees += daysDiff * 10 - 20; // Assuming each day adds 10 rupees
       }
 
       return `${updatedRupees} ₹ `;
@@ -168,7 +180,10 @@ export default {
         spinner: QSpinnerGears,
       });
       try {
-        const enteredVehicles = await db.collection("users").get();
+        const enteredVehicles = await db
+          .collection("users")
+          .where("companyId", "==", companyId)
+          .get();
         const data = [] as any[];
         const deletedData = [] as any[];
 
@@ -208,11 +223,11 @@ export default {
           users.value = users.value.filter((u: any) => u.id !== user.id);
           deletedVehicles.value.push(user);
           generateBill({
-rupees: user.rupees,
-text: user.text,
-date: user.date,
-exitDate:currentDate
-});
+            rupees: user.rupees,
+            text: user.text,
+            date: user.date,
+            exitDate: currentDate,
+          });
         }
         await db
           .collection("users")
@@ -247,35 +262,51 @@ exitDate:currentDate
       });
     });
 
-    const generateBill = (vehicle: { text: string; date: string; exitDate: string; rupees: string; }) => {
-  const doc = new jsPDF();
+    const generateBill = (vehicle: {
+      text: string;
+      date: string;
+      exitDate: string;
+      rupees: string;
+    }) => {
+      const doc = new jsPDF();
 
-  // Company Name, Phone Number, and Address
-  const companyName = "SKP parking";
-  const phoneNumber = "48764 87348";
-  const address = "123 Main St, City, State";
+      // Company Name, Phone Number, and Address
+      const companyName = "SKP parking";
+      const phoneNumber = "48764 87348";
+      const address = "123 Main St, City, State";
 
-  // Generate PDF content
-  doc.setFontSize(18);
-  doc.text("Vehicle: " + vehicle.text, 10, 30);
-  doc.text("Date: " + vehicle.date, 10, 40);
-  doc.text("Exit Date: " + vehicle.exitDate, 10, 50);
-  doc.text("₹ " + vehicle.rupees, 10, 60);
+      // Generate PDF content
+      doc.setFontSize(18);
+      doc.text("Vehicle: " + vehicle.text, 10, 30);
+      doc.text("Date: " + vehicle.date, 10, 40);
+      doc.text("Exit Date: " + vehicle.exitDate, 10, 50);
+      doc.text("₹ " + vehicle.rupees, 10, 60);
 
+      // Add Company Name
+      doc.setFontSize(12);
+      doc.setTextColor(128);
+      doc.text(companyName, doc.internal.pageSize.getWidth() - 10, 10, {
+        align: "right",
+      });
 
-  // Add Company Name
-  doc.setFontSize(12);
-  doc.setTextColor(128);
-  doc.text(companyName, doc.internal.pageSize.getWidth() - 10, 10, { align: "right" });
+      // Add Phone Number and Address
+      doc.setTextColor(0);
+      doc.text(
+        "Phone: " + phoneNumber,
+        doc.internal.pageSize.getWidth() - 10,
+        20,
+        { align: "right" }
+      );
+      doc.text(
+        "Address: " + address,
+        doc.internal.pageSize.getWidth() - 10,
+        30,
+        { align: "right" }
+      );
 
-  // Add Phone Number and Address
-  doc.setTextColor(0);
-  doc.text("Phone: " + phoneNumber, doc.internal.pageSize.getWidth() - 10, 20, { align: "right" });
-  doc.text("Address: " + address, doc.internal.pageSize.getWidth() - 10, 30, { align: "right" });
-
-  // Save the PDF
-  doc.save(`${companyName}-vehicle-bill-${vehicle.text}.pdf`);
-};
+      // Save the PDF
+      doc.save(`${companyName}-vehicle-bill-${vehicle.text}.pdf`);
+    };
 
     onMounted(() => {
       fetchUsers();
@@ -289,7 +320,8 @@ exitDate:currentDate
       searchText,
       filteredUsers,
       date,
-      generateBill
+      generateBill,
+      companyId,
     };
   },
 };

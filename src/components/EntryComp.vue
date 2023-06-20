@@ -1,106 +1,112 @@
 <template>
   <q-page class="flex flex-center">
-    <q-card style="border-radius: 5px;">
-    <q-form
-      style="
-        width: 600px;
-        height: 550px;
-      "
-      @submit="createUser"
-    >
-      <q-card-section
-        class="text-center text-red"
-        style="border-radius: 10px 10px 0 0"
-      >
-        <div class="text-h6 text-weight-bold">Check-in-vehicles</div>
-      </q-card-section>
-      <q-card-section class="q-pa-lg q-col-gutter-lg">
-        <q-input outlined v-model="text" label="Vehicle Number" mask="AA-##-AA-####"  :rules="[
-                    (text) =>
-                      vehicleNumberValidation(text) || 'Enter the valid vehicle number',
-                  ]">
-          <template v-slot:prepend>
-            <q-icon name="pin" color="red"></q-icon>
-          </template>
-        </q-input>
-        <q-select
-          outlined
-          v-model="selectedOption"
-          :options="options"
-          label="Vehicle"
-          :rules="[
-                  (val) => (val && val !== null) || 'Please select a vehicle',
-                ]"
+    <q-card style="border-radius: 5px">
+      <q-form style="width: 600px; height: 550px" @submit="createUser">
+        <q-card-section
+          class="text-center text-red"
+          style="border-radius: 10px 10px 0 0"
         >
-          <template v-slot:prepend>
-            <q-icon name="two_wheeler" color="red"></q-icon>
-          </template>
-        </q-select>
-        <q-input outlined v-model="date" mask="date" label="Date" class="q-mb-lg">
-          <template v-slot:prepend>
-            <q-icon name="event" class="cursor-pointer" color="red">
-              <q-popup-proxy
-                cover
-                transition-show="scale"
-                transition-hide="scale"
-              >
-                <q-date v-model="date">
-                  <div class="row items-center justify-end">
-                    <q-btn
-                      v-close-popup
-                      label="Close"
-                      color="primary"
-                      flat
-                    ></q-btn>
-                  </div>
-                </q-date>
-              </q-popup-proxy>
-            </q-icon>
-          </template>
-        </q-input>
-        <q-input
-          outlined
-          v-model="timeWithSeconds"
-          mask="fulltime"
-          label="Time"
-        >
-          <template v-slot:prepend>
-            <q-icon name="access_time" class="cursor-pointer" color="red">
-              <q-popup-proxy
-                cover
-                transition-show="scale"
-                transition-hide="scale"
-              >
-                <q-time v-model="timeWithSeconds" with-seconds format24h>
-                  <div class="row items-center justify-end">
-                    <q-btn
-                      v-close-popup
-                      label="Close"
-                      color="red"
-                      flat
-                    ></q-btn>
-                  </div>
-                </q-time>
-              </q-popup-proxy>
-            </q-icon>
-          </template>
-        </q-input>
-      </q-card-section>
-      <div class="row justify-end q-px-lg q-pt-md">
-    
-        <q-btn
-          push
-          unelevated
-          size="md"
-          no-caps
-          style="background-color: red; border-radius: 10px"
-          class="text-white col-4"
-          label="Check-in"
-          type="submit"
-        ></q-btn>
-      </div>
-    </q-form>
-  </q-card>
+          <div class="text-h6 text-weight-bold">Check-in-vehicles</div>
+        </q-card-section>
+        <q-card-section class="q-pa-lg q-col-gutter-lg">
+          <q-input
+            outlined
+            v-model="text"
+            label="Vehicle Number"
+            mask="AA-##-AA-####"
+            :rules="[
+              (text) =>
+                vehicleNumberValidation(text) ||
+                'Enter the valid vehicle number',
+            ]"
+          >
+            <template v-slot:prepend>
+              <q-icon name="pin" color="red"></q-icon>
+            </template>
+          </q-input>
+          <q-select
+            outlined
+            v-model="selectedOption"
+            :options="options"
+            label="Vehicle"
+            :rules="[
+              (val) => (val && val !== null) || 'Please select a vehicle',
+            ]"
+          >
+            <template v-slot:prepend>
+              <q-icon name="two_wheeler" color="red"></q-icon>
+            </template>
+          </q-select>
+          <q-input
+            outlined
+            v-model="date"
+            mask="date"
+            label="Date"
+            class="q-mb-lg"
+          >
+            <template v-slot:prepend>
+              <q-icon name="event" class="cursor-pointer" color="red">
+                <q-popup-proxy
+                  cover
+                  transition-show="scale"
+                  transition-hide="scale"
+                >
+                  <q-date v-model="date">
+                    <div class="row items-center justify-end">
+                      <q-btn
+                        v-close-popup
+                        label="Close"
+                        color="primary"
+                        flat
+                      ></q-btn>
+                    </div>
+                  </q-date>
+                </q-popup-proxy>
+              </q-icon>
+            </template>
+          </q-input>
+          <q-input
+            outlined
+            v-model="timeWithSeconds"
+            mask="fulltime"
+            label="Time"
+          >
+            <template v-slot:prepend>
+              <q-icon name="access_time" class="cursor-pointer" color="red">
+                <q-popup-proxy
+                  cover
+                  transition-show="scale"
+                  transition-hide="scale"
+                >
+                  <q-time v-model="timeWithSeconds" with-seconds format24h>
+                    <div class="row items-center justify-end">
+                      <q-btn
+                        v-close-popup
+                        label="Close"
+                        color="red"
+                        flat
+                      ></q-btn>
+                    </div>
+                  </q-time>
+                </q-popup-proxy>
+              </q-icon>
+            </template>
+          </q-input>
+        </q-card-section>
+        <div class="row justify-end q-px-lg q-pt-md">
+          <q-btn
+            push
+            unelevated
+            size="md"
+            no-caps
+            style="background-color: red; border-radius: 10px"
+            class="text-white col-4"
+            label="Check-in"
+            type="submit"
+          ></q-btn>
+        </div>
+      </q-form>
+    </q-card>
   </q-page>
 </template>
 
@@ -123,12 +129,13 @@ export default {
     const timeWithSeconds = ref("");
     const rupees = ref(10);
     const $q = useQuasar();
-    const status = ref(false)
-    const LoggedUser = Cookies.get('userName')
+    const status = ref(false);
+    const LoggedUser = Cookies.get("userName");
+    const companyId = Cookies.get("companyId");
 
-    function vehicleNumberValidation(vechicleNumber: string): boolean{
-       const vehicleNumberValidations = /^[A-Z]{2}-\d{2}-[A-Z]{2}-\d{4}$/;
-       return vehicleNumberValidations.test(vechicleNumber);
+    function vehicleNumberValidation(vechicleNumber: string): boolean {
+      const vehicleNumberValidations = /^[A-Z]{2}-\d{2}-[A-Z]{2}-\d{4}$/;
+      return vehicleNumberValidations.test(vechicleNumber);
     }
 
     const updateTime = () => {
@@ -145,8 +152,8 @@ export default {
 
     const createUser = async () => {
       Loading.show({
-  spinner: QSpinnerGears
-})
+        spinner: QSpinnerGears,
+      });
       try {
         await db
           .collection("users")
@@ -155,17 +162,28 @@ export default {
             selectedOption: selectedOption.value,
             date: date,
             timeWithSeconds: timeWithSeconds.value,
-            rupees : rupees.value,
-            LoggedUser:LoggedUser,
-            status:status.value,
+            rupees: rupees.value,
+            LoggedUser: LoggedUser,
+            status: status.value,
+            companyId: companyId,
           })
           .then(() => {
             generateBill({
-rupees: rupees.value,
-text: text.value,
-date:date,
-vehicleType: selectedOption.value
-});
+              rupees: rupees.value,
+              text: text.value,
+              date: date,
+              vehicleType: selectedOption.value,
+            });
+            db.collection("enteredVehicles").add({
+              text: text.value,
+              selectedOption: selectedOption.value,
+              date: date,
+              timeWithSeconds: timeWithSeconds.value,
+              rupees: rupees.value,
+              LoggedUser: LoggedUser,
+              status: status.value,
+              companyId: companyId,
+            });
             $q.loading.hide();
             $q.notify({
               type: "positive",
@@ -177,36 +195,51 @@ vehicleType: selectedOption.value
       }
     };
 
-    const generateBill = (vehicle: { text: string; date: string; vehicleType: never[]; rupees: number; }) => {
-  const doc = new jsPDF();
+    const generateBill = (vehicle: {
+      text: string;
+      date: string;
+      vehicleType: never[];
+      rupees: number;
+    }) => {
+      const doc = new jsPDF();
 
-  // Company Name, Phone Number, and Address
-  const companyName = "SKP parking";
-  const phoneNumber = "48764 87348";
-  const address = "123 Main St, City, State";
+      // Company Name, Phone Number, and Address
+      const companyName = "SKP parking";
+      const phoneNumber = "48764 87348";
+      const address = "123 Main St, City, State";
 
-  // Generate PDF content
-  doc.setFontSize(18);
-  doc.text("Vehicle: " + vehicle.text, 10, 30);
-  doc.text("Date: " + vehicle.date, 10, 40);
-  doc.text("Vehicle Type: " + vehicle.vehicleType, 10, 50);
-  doc.text("₹ " + vehicle.rupees, 10, 60);
+      // Generate PDF content
+      doc.setFontSize(18);
+      doc.text("Vehicle: " + vehicle.text, 10, 30);
+      doc.text("Date: " + vehicle.date, 10, 40);
+      doc.text("Vehicle Type: " + vehicle.vehicleType, 10, 50);
+      doc.text("₹ " + vehicle.rupees, 10, 60);
 
+      // Add Company Name
+      doc.setFontSize(12);
+      doc.setTextColor(128);
+      doc.text(companyName, doc.internal.pageSize.getWidth() - 10, 10, {
+        align: "right",
+      });
 
-  // Add Company Name
-  doc.setFontSize(12);
-  doc.setTextColor(128);
-  doc.text(companyName, doc.internal.pageSize.getWidth() - 10, 10, { align: "right" });
+      // Add Phone Number and Address
+      doc.setTextColor(0);
+      doc.text(
+        "Phone: " + phoneNumber,
+        doc.internal.pageSize.getWidth() - 10,
+        20,
+        { align: "right" }
+      );
+      doc.text(
+        "Address: " + address,
+        doc.internal.pageSize.getWidth() - 10,
+        30,
+        { align: "right" }
+      );
 
-  // Add Phone Number and Address
-  doc.setTextColor(0);
-  doc.text("Phone: " + phoneNumber, doc.internal.pageSize.getWidth() - 10, 20, { align: "right" });
-  doc.text("Address: " + address, doc.internal.pageSize.getWidth() - 10, 30, { align: "right" });
-
-  // Save the PDF
-  doc.save(`${companyName}-vehicle-bill-${vehicle.text}.pdf`);
-};
-
+      // Save the PDF
+      doc.save(`${companyName}-vehicle-bill-${vehicle.text}.pdf`);
+    };
 
     onMounted(() => {
       updateTime();
@@ -224,7 +257,8 @@ vehicleType: selectedOption.value
       LoggedUser,
       status,
       vehicleNumberValidation,
-      generateBill
+      generateBill,
+      companyId,
     };
   },
 };

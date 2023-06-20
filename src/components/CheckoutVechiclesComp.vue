@@ -26,9 +26,9 @@
                 transition-show="scale"
                 transition-hide="scale"
               >
-                <q-date v-model="selectedDate">
+                <q-date v-model="selectedDate" color="red"> 
                   <div class="row items-center justify-end">
-                    <q-btn v-close-popup label="Close" color="red" flat></q-btn>
+                    <q-btn v-close-popup label="Close" color="red" no-caps flat></q-btn>
                   </div>
                 </q-date>
               </q-popup-proxy>
@@ -72,7 +72,7 @@
 <script lang="ts">
 import { defineComponent, onMounted, ref, watch } from "vue";
 import db from "@/firebase";
-import { useQuasar, Loading, QSpinnerGears } from "quasar";
+import { useQuasar, Loading, QSpinnerGears, Cookies } from "quasar";
 import jsPDF from 'jspdf';
 
 
@@ -84,13 +84,14 @@ export default defineComponent({
     const searchText = ref("");
     const selectedDate = ref("");
     const $q = useQuasar();
+    const companyId = Cookies.get('companyId')
 
     const fetchUsers = async () => {
       Loading.show({
         spinner: QSpinnerGears,
       });
       try {
-        const enteredVehicles = await db.collection("users").get();
+        const enteredVehicles = await db.collection("users").where("companyId", "==", companyId).get();
         const deletedData = [] as any[];
 
         enteredVehicles.forEach((parkedVehicles) => {
@@ -174,6 +175,7 @@ export default defineComponent({
       searchText,
       selectedDate,
       generatePDF,
+      companyId
     };
   },
 });
