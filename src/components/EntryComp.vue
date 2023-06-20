@@ -13,17 +13,17 @@
             outlined
             v-model="text"
             label="Vehicle Number"
-            mask="AA-##-AA-####"
             :rules="[
               (text) =>
-                vehicleNumberValidation(text) ||
-                'Enter the valid vehicle number',
+                vehicleNumberValidation(text) || 'Enter a valid vehicle number',
             ]"
+            placeholder="AA-99-A-9999"
           >
             <template v-slot:prepend>
               <q-icon name="pin" color="red"></q-icon>
             </template>
           </q-input>
+
           <q-select
             outlined
             v-model="selectedOption"
@@ -134,7 +134,8 @@ export default {
     const companyId = Cookies.get("companyId");
 
     function vehicleNumberValidation(vechicleNumber: string): boolean {
-      const vehicleNumberValidations = /^[A-Z]{2}-\d{2}-[A-Z]{2}-\d{4}$/;
+      const vehicleNumberValidations =
+        /^([A-Z]{2}-\d{2}-[A-Z]{1}-\d{4})|([A-Z]{2}-\d{2}-[A-Z]{2}-\d{4})$/;
       return vehicleNumberValidations.test(vechicleNumber);
     }
 
