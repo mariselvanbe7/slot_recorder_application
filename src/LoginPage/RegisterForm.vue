@@ -62,7 +62,7 @@
                     >
                       <template v-slot:prepend>
                         <q-icon
-                          name="password"
+                          name="private_connectivity"
                           class="cursor-pointer"
                           color="red"
                         >

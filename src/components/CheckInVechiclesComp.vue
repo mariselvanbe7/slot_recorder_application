@@ -57,6 +57,7 @@
         <div class="group-heading">{{ group.exitDate }}</div>
         <q-list>
           <q-item v-for="vehicle in group.vehicles" :key="vehicle.id">
+            <q-item-section>{{ vehicle.LoggedUser }}</q-item-section>
             <q-item-section>{{ vehicle.text }}</q-item-section>
             <q-item-section side>₹ {{ vehicle.rupees }}</q-item-section>
           </q-item>

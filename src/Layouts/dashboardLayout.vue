@@ -80,7 +80,8 @@
       </q-item>
 
       <q-date
-        class="shadow-2 q-pa-md"
+        class="shadow-2 q-pa-md text-red"
+        color="red"
         v-model="date"
         minimal
         :default-date="new Date()"

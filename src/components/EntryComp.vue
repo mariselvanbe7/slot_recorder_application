@@ -128,6 +128,7 @@ export default {
     const date = new Date().toISOString().substr(0, 10);
     const timeWithSeconds = ref("");
     const rupees = ref(10);
+    const LogoutBy = ref('')
     const $q = useQuasar();
     const status = ref(false);
     const LoggedUser = Cookies.get("userName");
@@ -167,6 +168,7 @@ export default {
             LoggedUser: LoggedUser,
             status: status.value,
             companyId: companyId,
+            LogoutBy : LogoutBy.value
           })
           .then(() => {
             generateBill({
@@ -184,6 +186,7 @@ export default {
               LoggedUser: LoggedUser,
               status: status.value,
               companyId: companyId,
+              LogoutBy : LogoutBy.value
             });
             $q.loading.hide();
             $q.notify({
@@ -260,6 +263,7 @@ export default {
       vehicleNumberValidation,
       generateBill,
       companyId,
+      LogoutBy
     };
   },
 };

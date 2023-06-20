@@ -90,6 +90,7 @@ export default {
     const searchText = ref("");
     const date = ref("");
     const companyId = Cookies.get("companyId");
+    const logoutBy = Cookies.get('userName')
 
     const calculateUpdatedRupees = (val: number, row: any) => {
       const enteredDate = new Date(row.date);
@@ -232,7 +233,7 @@ export default {
         await db
           .collection("users")
           .doc(user.id)
-          .update({ status: true, rupees: user.rupees });
+          .update({ status: true, rupees: user.rupees,LogoutBy: logoutBy });
         // Remove the user from the local array and add it to the deletedVehicles array
         users.value = users.value.filter((u: any) => u.id !== user.id);
         deletedVehicles.value.push(user);
@@ -322,6 +323,7 @@ export default {
       date,
       generateBill,
       companyId,
+      logoutBy
     };
   },
 };

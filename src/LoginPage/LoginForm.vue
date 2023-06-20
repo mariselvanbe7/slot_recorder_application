@@ -20,7 +20,16 @@
                         (username && username.length > 0) ||
                         'Please enter your username',
                     ]"
-                  ></q-input>
+                  >
+                  <template v-slot:prepend>
+                        <q-icon
+                          name="person"
+                          class="cursor-pointer"
+                          color="red"
+                        >
+                        </q-icon>
+                      </template>
+                </q-input>
                   <q-input
                     v-model="password"
                     label="Password"
@@ -33,6 +42,14 @@
                         'Please enter your password',
                     ]"
                   >
+                  <template v-slot:prepend>
+                        <q-icon
+                          name="password"
+                          class="cursor-pointer"
+                          color="red"
+                        >
+                        </q-icon>
+                      </template>
                     <template v-slot:append>
                       <q-icon
                         :name="isPwd ? 'visibility_off' : 'visibility'"
