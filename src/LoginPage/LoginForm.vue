@@ -1,11 +1,7 @@
 <template>
   <q-page class="row items-center justify-evenly">
-    <div class="col-6">
-      <q-card class="bg-transparent no-shadow">
-        <q-page class="row items-center justify-center">
-          <div class="text-center">
+          <div class="text-center ">
             <q-card class="bg-transparent no-shadow">
-              <q-page style="padding-top: 10rem">
                 <q-form
                   class="q-px-sm q-mt-xl q-gutter-y-lg"
                   style="width: 500px"
@@ -84,11 +80,7 @@
                     ></q-btn>
                   </div>
                 </q-form>
-              </q-page>
             </q-card>
-          </div>
-        </q-page>
-      </q-card>
     </div>
   </q-page>
 </template>

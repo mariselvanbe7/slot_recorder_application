@@ -1,11 +1,7 @@
 <template>
   <q-page class="flex flex-center">
-    <div class="col-6">
-      <q-card class="bg-transparent no-shadow">
-        <q-page class="row items-center justify-center">
           <div class="text-center">
             <q-card class="bg-transparent no-shadow">
-              <q-page style="padding-top: 5rem">
                 <q-form
                   @submit="createLoginUser"
                   class="q-px-sm q-mt-xl q-gutter-y-lg"
@@ -50,7 +46,7 @@
                     <q-input
                       outlined
                       v-model="companyId"
-                      type="password"
+                      :type="isPwd ? 'password' : 'text'"
                       label="companyId"
                       :rules="[
                         (val) =>
@@ -79,8 +75,8 @@
                     <q-input
                       outlined
                       v-model="password"
-                      type="password"
                       label="Password"
+                      :type="isPwd ? 'password' : 'text'"
                       :rules="[
                         (val) =>
                           (val && val.length > 0) || 'Please Enter Password',
@@ -126,12 +122,8 @@
                     ></q-btn>
                   </div>
                 </q-form>
-              </q-page>
             </q-card>
-          </div>
-        </q-page>
-      </q-card>
-    </div>
+          </div> 
   </q-page>
 </template>
 
