@@ -5,7 +5,7 @@
                 <q-form
                   @submit="createLoginUser"
                   class="q-px-sm q-mt-xl q-gutter-y-lg"
-                  style="width: 500px"
+                  :style="$q.screen.gt.xs ? 'width: 500px' : 'width: 100%'"
                 >
                   <q-card-section
                     class="text-center text-red"

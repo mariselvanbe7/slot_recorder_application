@@ -2,7 +2,7 @@
   <q-page class="q-pa-xl full-width">
     <div class="text-h6 text-weight-bold q-mb-sm">checked-in-vehicle lists</div>
     <div class="q-mb-md row">
-      <div class="col-4">
+      <div class="col-xs-12 col-md-4">
         <q-input
           v-model="searchText"
           debounce="300"
@@ -12,7 +12,7 @@
           style="border"
         ></q-input>
       </div>
-      <div class="col-4 q-px-md">
+      <div class="col-xs-12 col-md-4" :style="$q.screen.lt.md ? 'margin-top: 10px' : 'margin-left: 10px'">
         <q-input
           outlined
           v-model="date"
@@ -72,7 +72,13 @@
   </q-page>
 </template>
 
-<style></style>
+<style>
+.row {
+  margin-right: 0;
+  margin-left: 0;
+}
+</style>
+
 
 <script lang="ts">
 import { onMounted, ref, computed } from "vue";

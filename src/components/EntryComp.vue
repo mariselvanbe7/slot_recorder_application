@@ -1,12 +1,12 @@
 <template>
-  <q-page class="flex flex-center">
-    <q-card style="border-radius: 5px">
-      <q-form style="width: 600px; height: 550px" @submit="createUser">
+ <q-page class="flex flex-center">
+    <q-card style="border-radius: 5px;" :style="$q.screen.gt.xs ? 'width:550px; height:550px' : 'width:100%'">
+      <q-form style="width: 100%; height: 100%" @submit="createUser">
         <q-card-section
           class="text-center text-red"
           style="border-radius: 10px 10px 0 0"
         >
-          <div class="text-h6 text-weight-bold">Check-in-vehicles</div>
+          <div class="text-h6 text-weight-bold text-black">Check-in-vehicles</div>
         </q-card-section>
         <q-card-section class="q-pa-lg q-col-gutter-lg">
           <q-input
@@ -93,7 +93,7 @@
             </template>
           </q-input>
         </q-card-section>
-        <div class="row justify-end q-px-lg q-pt-md">
+        <div class="row justify-end q-pr-lg q-py-md">
           <q-btn
             push
             unelevated

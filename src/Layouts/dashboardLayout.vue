@@ -7,6 +7,13 @@
           <q-avatar> SKP </q-avatar>
           Parking
         </q-toolbar-title>
+       
+        <q-icon
+          v-if="isMobile"
+          class="cursor-pointer"
+          name="menu"
+          @click="toggleRightDrawer"
+        ></q-icon>
       </q-toolbar>
     </q-header>
     <q-drawer
@@ -29,7 +36,7 @@
             @click="activeItem = menuItem.value"
             :active="activeItem === menuItem.value"
             v-ripple
-            active-class="active-item bg-red text-black"
+            active-class="active-item bg-red text-white"
             :to="
               menuItem.value === 'dashboard'
                 ? `/entry`
@@ -147,9 +154,7 @@ export default {
       menuList,
       logout,
       name,
-      email
- 
- 
+      email,
     };
   },
 };

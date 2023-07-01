@@ -1,7 +1,15 @@
 <template>
   <q-layout view="hHh 1pR ff">
     <q-page class="row items-center justify-evenly">
-      <div class="col-6 q-mr-xl">
+      <q-header elevated class="bg-red text-white" height-hint="98">
+      <q-toolbar>
+        <q-toolbar-title>
+          <q-avatar> SKP </q-avatar>
+          Parking
+        </q-toolbar-title>
+      </q-toolbar>
+    </q-header>
+      <div class="col-6 q-mr-xl" :style="$q.screen.gt.xs ? '' : 'display:none'">
         <img
         style="width: 100%; "
           src="Parking-pana.png"

@@ -4,7 +4,7 @@
             <q-card class="bg-transparent no-shadow">
                 <q-form
                   class="q-px-sm q-mt-xl q-gutter-y-lg"
-                  style="width: 500px"
+                  :style="$q.screen.gt.xs ? 'width: 500px' : 'width: 100%'"
                 >
                   <h4 class="custom-heading text-red">Vehicle parking</h4>
                   <q-input

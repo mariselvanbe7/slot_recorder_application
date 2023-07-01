@@ -2,7 +2,7 @@
   <q-page class="q-pa-xl full-width">
     <p style="font-size: large;" class="text-bold">Checkedout vehicle details</p>
     <div class="q-mb-md row">
-      <div class="col-4">
+      <div class="col-12 col-sm-6 col-md-4">
         <q-input
           v-model="searchText"
           debounce="300"
@@ -12,7 +12,7 @@
           style="border"
         ></q-input>
       </div>
-      <div class="col-4 q-px-md">
+      <div class="col-12 col-sm-6 col-md-4" :style="$q.screen.lt.md ? 'margin-top: 10px' : 'margin-left: 10px'">
         <q-input
           outlined
           v-model="selectedDate"
@@ -45,7 +45,7 @@
     <q-card
       v-for="(group, index) in groupedVehicles"
       :key="index"
-      class="q-mt-md"
+      class="q-mt-md q-col-xs-12 col-sm-6 col-md-4"
     >
       <q-card-section>
         <div class="group-heading">{{ group.exitDate }}</div>
@@ -69,7 +69,6 @@
     </q-card>
   </q-page>
 </template>
-
 <script lang="ts">
 import { defineComponent, onMounted, ref, watch } from "vue";
 import db from "@/firebase";
