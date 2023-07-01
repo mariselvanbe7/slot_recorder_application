@@ -61,10 +61,11 @@
         <q-icon
           name="picture_as_pdf"
           class="cursor-pointer"
+          color="red"
           size="1.5rem"
           @click="generatePDF(group)"
         ></q-icon>
-        <q-card-section>Total Rupees: {{ group.totalRupees }}</q-card-section>
+        <q-card-section class="text-blue-10 text-bold">Total Rupees: {{ group.totalRupees }}</q-card-section>
       </q-card-actions>
     </q-card>
   </q-page>
@@ -186,5 +187,6 @@ export default defineComponent({
   font-size: 18px;
   font-weight: bold;
   margin-bottom: 10px;
+  color: red;
 }
 </style>

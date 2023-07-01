@@ -5,6 +5,7 @@
                 <q-form
                   class="q-px-sm q-mt-xl q-gutter-y-lg"
                   :style="$q.screen.gt.xs ? 'width: 500px' : 'width: 100%'"
+                  @submit="LoginSuccess"
                 >
                   <h4 class="custom-heading text-red">Vehicle parking</h4>
                   <q-input
@@ -76,7 +77,7 @@
                       style="background-color: red; border-radius: 10px"
                       class="text-white col-5"
                       label="Login"
-                      @click="LoginSuccess"
+                      type="submit"
                     ></q-btn>
                   </div>
                 </q-form>
