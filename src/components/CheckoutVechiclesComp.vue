@@ -8,9 +8,16 @@
           debounce="300"
           outlined
           placeholder="Search by text"
-          clearable
           style="border"
-        ></q-input>
+        >
+        <template v-slot:append v-if="searchText.length > 0">
+            <q-icon
+              name="close"
+              @click="searchText = ''"
+              class="cursor-pointer"
+            ></q-icon>
+          </template>
+      </q-input>
       </div>
       <div class="col-12 col-sm-6 col-md-4" :style="$q.screen.lt.md ? 'margin-top: 10px' : 'margin-left: 10px'">
         <q-input
@@ -34,6 +41,7 @@
               </q-popup-proxy>
             </q-icon>
             <q-icon
+            v-if="selectedDate.length > 0"
               name="close"
               @click="selectedDate = ''"
               class="cursor-pointer"

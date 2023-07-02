@@ -8,11 +8,20 @@
           debounce="300"
           outlined
           placeholder="Search by text"
-          clearable
           style="border"
+        >
+          <template v-slot:append v-if="searchText.length > 0">
+            <q-icon
+              name="close"
+              @click="searchText = ''"
+              class="cursor-pointer"
+            ></q-icon> </template
         ></q-input>
       </div>
-      <div class="col-xs-12 col-md-4" :style="$q.screen.lt.md ? 'margin-top: 10px' : 'margin-left: 10px'">
+      <div
+        class="col-xs-12 col-md-4"
+        :style="$q.screen.lt.md ? 'margin-top: 10px' : 'margin-left: 10px'"
+      >
         <q-input
           outlined
           v-model="date"
@@ -40,6 +49,7 @@
               </q-popup-proxy>
             </q-icon>
             <q-icon
+            v-if="date.length > 0"
               name="close"
               @click="date = ''"
               class="cursor-pointer"
@@ -79,7 +89,6 @@
 }
 </style>
 
-
 <script lang="ts">
 import { onMounted, ref, computed } from "vue";
 import db from "@/firebase";
@@ -96,7 +105,7 @@ export default {
     const searchText = ref("");
     const date = ref("");
     const companyId = Cookies.get("companyId");
-    const logoutBy = Cookies.get('userName')
+    const logoutBy = Cookies.get("userName");
 
     const calculateUpdatedRupees = (val: number, row: any) => {
       const enteredDate = new Date(row.date);
@@ -239,7 +248,7 @@ export default {
         await db
           .collection("users")
           .doc(user.id)
-          .update({ status: true, rupees: user.rupees,LogoutBy: logoutBy });
+          .update({ status: true, rupees: user.rupees, LogoutBy: logoutBy });
         // Remove the user from the local array and add it to the deletedVehicles array
         users.value = users.value.filter((u: any) => u.id !== user.id);
         deletedVehicles.value.push(user);
@@ -262,7 +271,7 @@ export default {
 
         // Filter based on the selected date
         const matchesDate = selectedDate
-          ? new Date(user.date).toDateString() === selectedDate.toDateString()
+          ? new Date(user.date).toDateString() === new Date(date.value).toDateString()
           : true;
 
         return matchesSearch && matchesDate;
@@ -329,7 +338,7 @@ export default {
       date,
       generateBill,
       companyId,
-      logoutBy
+      logoutBy,
     };
   },
 };

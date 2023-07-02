@@ -8,9 +8,16 @@
           debounce="300"
           outlined
           placeholder="Search by text"
-          clearable
           style="border"
-        ></q-input>
+        >
+        <template v-slot:append v-if="searchText.length > 0">
+            <q-icon
+              name="close"
+              @click="searchText = ''"
+              class="cursor-pointer"
+            ></q-icon>
+          </template>
+      </q-input>
       </div>
       <div class="col-12 col-md-4" :style="$q.screen.lt.md ? 'margin-top: 10px' : 'margin-left: 10px'">
         <q-input
@@ -40,6 +47,7 @@
               </q-popup-proxy>
             </q-icon>
             <q-icon
+            v-if="selectedDate.length > 0"
               name="close"
               @click="selectedDate = ''"
               class="cursor-pointer"
@@ -113,15 +121,16 @@ export default defineComponent({
 
         // Filter vehicles based on search text and selected date
         const filteredData = deletedData.filter((vehicle) => {
-          const searchTextMatch = vehicle.text
-            .toLowerCase()
-            .includes(searchText.value.toLowerCase());
-          const dateMatch = selectedDate.value
-            ? new Date(vehicle.exitDate).toDateString() ===
-              new Date(selectedDate.value).toDateString()
-            : true;
-          return searchTextMatch && dateMatch;
-        });
+    const searchTextMatch = vehicle.text
+      .toLowerCase()
+      .includes(searchText.value.toLowerCase());
+    const dateMatch =
+      selectedDate.value ?
+      new Date(vehicle.date).toDateString() ===
+        new Date(selectedDate.value).toDateString()
+        : true;
+    return searchTextMatch && dateMatch;
+  });
 
         // Group vehicles by exitDate
         const groups = {} as any;
