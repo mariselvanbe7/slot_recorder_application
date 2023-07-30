@@ -1,6 +1,6 @@
 <template>
  <q-page class="flex flex-center">
-    <q-card style="border-radius: 5px;" :style="$q.screen.gt.xs ? 'width:550px; height:550px' : 'width:100%'">
+    <q-card style="border-radius: 5px;" :style="$q.screen.gt.sm ? 'width: 700px; height:550px' : 'width:100%'">
       <q-form style="width: 100%; height: 100%" @submit="createUser">
         <q-card-section
           class="text-center text-red"

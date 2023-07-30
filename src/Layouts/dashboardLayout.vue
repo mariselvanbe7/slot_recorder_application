@@ -4,8 +4,7 @@
       <q-toolbar>
         <q-btn flat @click="drawer = !drawer" round dense icon="menu"></q-btn>
         <q-toolbar-title>
-          <q-avatar> SKP </q-avatar>
-          Parking
+           Vehicle Parking
         </q-toolbar-title>
        
         <q-icon
@@ -119,7 +118,7 @@ export default {
       },
       {
         icon: "forklift",
-        label: "Lists",
+        label: "Storing-Vehicles",
         routeTo: "lists",
         value: "lists",
         separator: false,
@@ -133,7 +132,7 @@ export default {
  },
   {
         icon: "exit_to_app",
-        label: "Exit-vehicles",
+        label: "Exited-vehicles",
         routeTo: "exits",
         value: "exits",
         separator: false,

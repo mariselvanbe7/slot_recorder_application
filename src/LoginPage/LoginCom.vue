@@ -4,8 +4,7 @@
       <q-header elevated class="bg-red text-white" height-hint="98">
       <q-toolbar>
         <q-toolbar-title>
-          <q-avatar> SKP </q-avatar>
-          Parking
+             Vehicle Parking
         </q-toolbar-title>
       </q-toolbar>
     </q-header>
@@ -23,15 +22,12 @@
 
 <script lang="ts">
 import { defineComponent, ref } from "vue";
-//import { Cookies } from 'quasar';
 
 export default defineComponent({
   name: "LoginComp",
   setup() {
     const username = ref("");
     const password = ref("");
-    // const userName = Cookies.get('userName');
-    // const Password = Cookies.get('password');
     const isPwd = ref(true);
 
     function register() {

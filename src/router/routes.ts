@@ -6,10 +6,8 @@ const requireAuth = (to: RouteLocationNormalized, from: RouteLocationNormalized,
   const isAuthenticated = !!Cookies.get('userName');
 
   if (isAuthenticated) {
-    // User is authenticated, allow access to the route
     next();
   } else {
-    // User is not authenticated, redirect to login page
     next({ name: 'login' });
   }
 };
@@ -51,10 +49,8 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('@/components/CheckInVechiclesComp.vue')
       }
     ],
-    // Add the route guard to the route
     beforeEnter: requireAuth,
   },
-  // Add other routes as needed
 ];
 
 const router = createRouter({
