@@ -3,64 +3,31 @@
     <p style="font-size: large" class="text-bold">Entered vehicle details</p>
     <div class="q-mb-md row">
       <div class="col-12 col-md-4">
-        <q-input
-          v-model="searchText"
-          debounce="300"
-          outlined
-          placeholder="Search by text"
-          style="border"
-        >
-        <template v-slot:append v-if="searchText.length > 0">
-            <q-icon
-              name="close"
-              @click="searchText = ''"
-              class="cursor-pointer"
-            ></q-icon>
+        <q-input v-model="searchText" debounce="300" outlined placeholder="Search by text" style="border">
+          <template v-slot:append v-if="searchText.length > 0">
+            <q-icon name="close" @click="searchText = ''" class="cursor-pointer"></q-icon>
           </template>
-      </q-input>
+        </q-input>
       </div>
       <div class="col-12 col-md-4" :style="$q.screen.lt.md ? 'margin-top: 10px' : 'margin-left: 10px'">
-        <q-input
-          outlined
-          v-model="selectedDate"
-          mask="date"
-          placeholder="Search by date"
-        >
+        <q-input outlined v-model="selectedDate" mask="date" placeholder="Search by date">
           <template v-slot:append>
             <q-icon name="event" class="cursor-pointer">
-              <q-popup-proxy
-                cover
-                transition-show="scale"
-                transition-hide="scale"
-              >
+              <q-popup-proxy cover transition-show="scale" transition-hide="scale">
                 <q-date v-model="selectedDate" color="red">
                   <div class="row items-center justify-end">
-                    <q-btn
-                      v-close-popup
-                      label="Close"
-                      color="red"
-                      no-caps
-                      flat
-                    ></q-btn>
+                    <q-btn v-close-popup label="Close" color="red" no-caps flat></q-btn>
                   </div>
                 </q-date>
               </q-popup-proxy>
             </q-icon>
-            <q-icon
-            v-if="selectedDate.length > 0"
-              name="close"
-              @click="selectedDate = ''"
-              class="cursor-pointer"
-            ></q-icon>
+            <q-icon v-if="selectedDate.length > 0" name="close" @click="selectedDate = ''"
+              class="cursor-pointer"></q-icon>
           </template>
         </q-input>
       </div>
     </div>
-    <q-card
-      v-for="(group, index) in groupedVehicles"
-      :key="index"
-      class="q-mt-md"
-    >
+    <q-card v-for="(group, index) in groupedVehicles" :key="index" class="q-mt-md">
       <q-card-section>
         <div class="group-heading">{{ group.exitDate }}</div>
         <q-list>
@@ -72,13 +39,8 @@
         </q-list>
       </q-card-section>
       <q-card-actions align="right">
-        <q-icon
-          name="picture_as_pdf"
-          class="cursor-pointer"
-          color="red"
-          size="1.5rem"
-          @click="generatePDF(group)"
-        ></q-icon>
+        <q-icon name="picture_as_pdf" class="cursor-pointer" color="red" size="1.5rem"
+          @click="generatePDF(group)"></q-icon>
         <q-card-section class="text-blue-10 text-bold">Total Rupees: {{ group.totalRupees }}</q-card-section>
       </q-card-actions>
     </q-card>
@@ -121,16 +83,16 @@ export default defineComponent({
 
         // Filter vehicles based on search text and selected date
         const filteredData = deletedData.filter((vehicle) => {
-    const searchTextMatch = vehicle.text
-      .toLowerCase()
-      .includes(searchText.value.toLowerCase());
-    const dateMatch =
-      selectedDate.value ?
-      new Date(vehicle.date).toDateString() ===
-        new Date(selectedDate.value).toDateString()
-        : true;
-    return searchTextMatch && dateMatch;
-  });
+          const searchTextMatch = vehicle.text
+            .toLowerCase()
+            .includes(searchText.value.toLowerCase());
+          const dateMatch =
+            selectedDate.value ?
+              new Date(vehicle.date).toDateString() ===
+              new Date(selectedDate.value).toDateString()
+              : true;
+          return searchTextMatch && dateMatch;
+        });
 
         // Group vehicles by exitDate
         const groups = {} as any;

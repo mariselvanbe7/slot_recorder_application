@@ -3,75 +3,30 @@
     <div class="text-h6 text-weight-bold q-mb-sm">checked-in-vehicle lists</div>
     <div class="q-mb-md row">
       <div class="col-xs-12 col-md-4">
-        <q-input
-          v-model="searchText"
-          debounce="300"
-          outlined
-          placeholder="Search by text"
-          style="border"
-        >
+        <q-input v-model="searchText" debounce="300" outlined placeholder="Search by text" style="border">
           <template v-slot:append v-if="searchText.length > 0">
-            <q-icon
-              name="close"
-              @click="searchText = ''"
-              class="cursor-pointer"
-            ></q-icon> </template
-        ></q-input>
+            <q-icon name="close" @click="searchText = ''" class="cursor-pointer"></q-icon> </template></q-input>
       </div>
-      <div
-        class="col-xs-12 col-md-4"
-        :style="$q.screen.lt.md ? 'margin-top: 10px' : 'margin-left: 10px'"
-      >
-        <q-input
-          outlined
-          v-model="date"
-          mask="date"
-          placeholder="Search by date"
-        >
+      <div class="col-xs-12 col-md-4" :style="$q.screen.lt.md ? 'margin-top: 10px' : 'margin-left: 10px'">
+        <q-input outlined v-model="date" mask="date" placeholder="Search by date">
           <template v-slot:append>
             <q-icon name="event" class="cursor-pointer">
-              <q-popup-proxy
-                cover
-                transition-show="scale"
-                transition-hide="scale"
-              >
+              <q-popup-proxy cover transition-show="scale" transition-hide="scale">
                 <q-date v-model="date" color="red">
                   <div class="row items-center justify-end">
-                    <q-btn
-                      no-caps
-                      v-close-popup
-                      label="Close"
-                      color="red"
-                      flat
-                    ></q-btn>
+                    <q-btn no-caps v-close-popup label="Close" color="red" flat></q-btn>
                   </div>
                 </q-date>
               </q-popup-proxy>
             </q-icon>
-            <q-icon
-            v-if="date.length > 0"
-              name="close"
-              @click="date = ''"
-              class="cursor-pointer"
-            ></q-icon>
+            <q-icon v-if="date.length > 0" name="close" @click="date = ''" class="cursor-pointer"></q-icon>
           </template>
         </q-input>
       </div>
     </div>
-    <q-table
-      title="checked-in-vehicle lists"
-      :rows="filteredUsers"
-      :columns="columns"
-      row-key="name"
-    >
+    <q-table title="checked-in-vehicle lists" :rows="filteredUsers" :columns="columns" row-key="name">
       <template v-slot:body-cell-checkoutVehicles="props">
-        <q-btn
-          color="red"
-          size="0.6rem"
-          class="q-mt-sm"
-          row-key="name"
-          @click="handleToggle(props.row)"
-        >
+        <q-btn color="red" size="0.6rem" class="q-mt-sm" row-key="name" @click="handleToggle(props.row)">
           <template v-slot:loading>
             <q-spinner-gears></q-spinner-gears>
           </template>

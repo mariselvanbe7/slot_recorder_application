@@ -1,91 +1,47 @@
 <template>
- <q-page class="flex flex-center">
+  <q-page class="flex flex-center">
     <q-card style="border-radius: 5px;" :style="$q.screen.gt.sm ? 'width: 700px; height:550px' : 'width:100%'">
       <q-form style="width: 100%; height: 100%" @submit="createUser">
-        <q-card-section
-          class="text-center text-red"
-          style="border-radius: 10px 10px 0 0"
-        >
+        <q-card-section class="text-center text-red" style="border-radius: 10px 10px 0 0">
           <div class="text-h6 text-weight-bold text-black">Check-in-vehicles</div>
         </q-card-section>
         <q-card-section class="q-pa-lg q-col-gutter-lg">
-          <q-input
-            outlined
-            v-model="text"
-            label="Vehicle Number"
-            :rules="[
-              (text) =>
-                vehicleNumberValidation(text) || 'Enter a valid vehicle number',
-            ]"
-            placeholder="AA-99-A-9999"
-          >
+          <q-input outlined v-model="text" label="Vehicle Number" :rules="[
+            (text) =>
+              vehicleNumberValidation(text) || 'Enter a valid vehicle number',
+          ]" placeholder="AA-99-A-9999">
             <template v-slot:prepend>
               <q-icon name="pin" color="red"></q-icon>
             </template>
           </q-input>
 
-          <q-select
-            outlined
-            v-model="selectedOption"
-            :options="options"
-            label="Vehicle"
-            :rules="[
-              (val) => (val && val !== null) || 'Please select a vehicle',
-            ]"
-          >
+          <q-select outlined v-model="selectedOption" :options="options" label="Vehicle" :rules="[
+            (val) => (val && val !== null) || 'Please select a vehicle',
+          ]">
             <template v-slot:prepend>
               <q-icon name="two_wheeler" color="red"></q-icon>
             </template>
           </q-select>
-          <q-input
-            outlined
-            v-model="date"
-            mask="date"
-            label="Date"
-            class="q-mb-lg"
-          >
+          <q-input outlined v-model="date" mask="date" label="Date" class="q-mb-lg">
             <template v-slot:prepend>
               <q-icon name="event" class="cursor-pointer" color="red">
-                <q-popup-proxy
-                  cover
-                  transition-show="scale"
-                  transition-hide="scale"
-                >
+                <q-popup-proxy cover transition-show="scale" transition-hide="scale">
                   <q-date v-model="date">
                     <div class="row items-center justify-end">
-                      <q-btn
-                        v-close-popup
-                        label="Close"
-                        color="primary"
-                        flat
-                      ></q-btn>
+                      <q-btn v-close-popup label="Close" color="primary" flat></q-btn>
                     </div>
                   </q-date>
                 </q-popup-proxy>
               </q-icon>
             </template>
           </q-input>
-          <q-input
-            outlined
-            v-model="timeWithSeconds"
-            mask="fulltime"
-            label="Time"
-          >
+          <q-input outlined v-model="timeWithSeconds" mask="fulltime" label="Time">
             <template v-slot:prepend>
               <q-icon name="access_time" class="cursor-pointer" color="red">
-                <q-popup-proxy
-                  cover
-                  transition-show="scale"
-                  transition-hide="scale"
-                >
+                <q-popup-proxy cover transition-show="scale" transition-hide="scale">
                   <q-time v-model="timeWithSeconds" with-seconds format24h>
                     <div class="row items-center justify-end">
-                      <q-btn
-                        v-close-popup
-                        label="Close"
-                        color="red"
-                        flat
-                      ></q-btn>
+                      <q-btn v-close-popup label="Close" color="red" flat></q-btn>
                     </div>
                   </q-time>
                 </q-popup-proxy>
@@ -94,16 +50,8 @@
           </q-input>
         </q-card-section>
         <div class="row justify-end q-pr-lg q-py-md">
-          <q-btn
-            push
-            unelevated
-            size="md"
-            no-caps
-            style="background-color: red; border-radius: 10px"
-            class="text-white col-4"
-            label="Check-in"
-            type="submit"
-          ></q-btn>
+          <q-btn push unelevated size="md" no-caps style="background-color: red; border-radius: 10px"
+            class="text-white col-4" label="Check-in" type="submit"></q-btn>
         </div>
       </q-form>
     </q-card>
@@ -168,7 +116,7 @@ export default {
             LoggedUser: LoggedUser,
             status: status.value,
             companyId: companyId,
-            LogoutBy : LogoutBy.value
+            LogoutBy: LogoutBy.value
           })
           .then(() => {
             generateBill({
@@ -186,7 +134,7 @@ export default {
               LoggedUser: LoggedUser,
               status: status.value,
               companyId: companyId,
-              LogoutBy : LogoutBy.value
+              LogoutBy: LogoutBy.value
             });
             $q.loading.hide();
             $q.notify({
